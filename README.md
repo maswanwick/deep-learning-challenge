@@ -28,7 +28,7 @@ This attempt achieved a model accuracy of .7328
 * EIN
 * NAME
 
-**Layers/Neurons/Activation Function?**
+**Layers/Neurons/Activation Function? Why?**
 * Layers = 2
 * Neurons = 80/30
 * Activation Function = relu
@@ -43,30 +43,79 @@ This attempt achieved a model accuracy of .7328
 * Increased the second hidden layer to have the same number of neurons as the first (80).
 * Increased the number of epochs to 200 (from 100).
 
+### Attempt #2 (AlphabetSoupCharity_Optimization.h5/AlphabetSoupCharity_Optimization.ipynb)
 
-| Question | Answer |
-| - | - |
-| Model Target? | IS_SUCCESSFUL value |
-| Model Features? |  |
-| Variables to remove? | EIN<br>NAME |
-| Layers/Neurons/Activation Function?  Why? | 2, 80/30, relu<br>This was the recommended starting point for the challenge. |
-| Achieve 75% accuracy? | No - 73.28% |
-| Steps to improve for next time | Remove STATUS and SPECIAL
+This attempt achieved a model accuracy of .7314
 
-* LogisticRegression model:
-  * Of all the loans the model predicted as healthy, 100% of them actually were. (Precision 0 = 1.00)
-  * Of all the loans the model predicted as high-risk, 85% of them actually were. (Precision 1 = 0.85)
-  * Of all the loans that were actually healthy, the model predicted 99% of them. (Recall 0 = 0.99)
-  * Of all the loans that were actually high-risk, the model predicted 91% of them. (Recall 1 = 0.91)
-  * Both F1 scores are very close to 1 (0 = 1.0, 1 = 0.88), with an overall accuracy of 99%, therefore, the logistic regression model does a good job of predicting both healthy and high-risk loans.
+**Model Target?**
+* IS_SUCCESSFUL value
 
-* RandomOverSample model:
-  * Of all the loans the model predicted as healthy, 91% of them actually were. (Precision 0 = 0.91)
-  * Of all the loans the model predicted as high-risk, 99% of them actually were. (Precision 1 = 0.99)
-  * Of all the loans that were actually healthy, the model predicted 100% of them. (Recall 0 = 1.00)
-  * Of all the loans that were actually high-risk, the model predicted 90% of them. (Recall 1 = 0.90)
-  * Both F1 scores are very close to 1 (0 = 0.95, 1 = 0.95) with an overall accuracy of 95%, therefore, the logistic regression model does a good job of predicting both healthy and high-risk loans.
+**Model Features?**
+* APPLICATION_TYPE
+* AFFILIATION
+* CLASSIFICATION
+* USE_CASE
+* ORGANIZATION
+* INCOME_AMT
+* ASK_AMT_CATEGORY
+
+**Variables Removed?**
+* EIN
+* NAME
+* STATUS
+* SPECIAL_CONSIDERATIONS
+
+**Layers/Neurons/Activation Function? Why?**
+* Layers = 2
+* Neurons = 80/80
+* Activation Function = relu
+* Attempted to add additional neurons to add more trainable parameters into the model.
+
+**Achieve 75% Accuracy?**
+* No - 73.14%
+
+**Steps to improve for next time?**
+* Binned APPLICATION_TYPE and CLASSIFICATION into two categories.  79% of the APPLICATION_TYPES are T3, so I created two bins, one for T3 and one for everything else.  50% of the CLASSIFICATION records are C1000, so I created two bins, one for C1000 and one for everything else.
+* Trained the model with 90% of the dataset, instead of the default 75%.  The thought here was if I'm able to feed the model more training data, the test data will perform better.
+* Added a third hidden layer.
+* Increased the number of epochs to 300 (from 200).
+
+### Attempt #3 (AlphabetSoupCharity_Optimization_Again.h5/AlphabetSoupCharity_Optimization_Again.ipynb)
+
+This attempt achieved a model accuracy of .7122
+
+**Model Target?**
+* IS_SUCCESSFUL value
+
+**Model Features?**
+* APPLICATION_TYPE
+* AFFILIATION
+* CLASSIFICATION
+* USE_CASE
+* ORGANIZATION
+* INCOME_AMT
+* ASK_AMT_CATEGORY
+
+**Variables Removed?**
+* EIN
+* NAME
+* STATUS
+* SPECIAL_CONSIDERATIONS
+
+**Layers/Neurons/Activation Function? Why?**
+* Layers = 3
+* Neurons = 80/80/80
+* Activation Function = relu
+* Attempted to an additional layer with the same number of neurons to add more trainable parameters into the model.
+
+**Achieve 75% Accuracy?**
+* No - 71.22%
+
+**Steps to improve for next time?**
+* N/A - this was my last attempt
 
 ## Summary
 
-Both models have a high overall accuracy score (LogisticRegression = 99%, RandomOverSample = 95%), so both would be a good choice when predicting borrower credit risk.  However, from a business standpoint, even though the LogisticRegression model had a 99% overall accuracy, it only had an 85% accuracy when predicting high-risk loans that actaully were high-risk.  Which means, there is a chance that the lender would reject an applicant that would actually be a successful loan.  So the lender might be missing out on potential revenue with this model.  Conversely, the RandomOverSample model was able to accurately predict 99% of these high-risk loans.  But, the cost of this increased accuracy comes at the expense of the accuracy of healthy loans - which means they might end up loaning to someone that is actually a credit risk.  So from a risk perspective, the LogisticRegression model seems to be the better option, since missing out on potential revenue is a better option than lending to a borrower who ultimately defaults.
+Overall, all three attempts scored an accuracy score of over 70%, which is a good, but not great, accuracy score.  My attempts to improve the accuracy score were very frustrating, I was uncertain what the different changes would have on the overall performance.  Obviously, everything I thought would help (removing features, removing variance within features, increasing neurons, layers, and epochs) didn't - in fact, it decreased the accuracy score.
+
+After watching [this](https://www.mathworks.com/videos/introduction-to-deep-learning-machine-learning-vs-deep-learning-1489503513018.html?gclid=EAIaIQobChMIhOWywvORgwMVKszCBB1z2gM0EAAYASAAEgKag_D_BwE&ef_id=EAIaIQobChMIhOWywvORgwMVKszCBB1z2gM0EAAYASAAEgKag_D_BwE:G:s&s_kwcid=AL!8664!3!591940647971!p!!g!!machine%20learning%20vs%20neural%20networks&s_eid=psn_68899282265&q=machine+learning+vs+neural+networks&gad_source=1) video on when you should use machine learning vs. deep learning, it seems that deep learning is best used for much larger datasets.  In this case, we might have seen better accuracy in a machine learning model such as LogisticRegression, since this dataset is "small" in comparision to other datasets intended for neural networks.
