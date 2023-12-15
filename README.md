@@ -106,7 +106,7 @@ This attempt achieved a model accuracy of .7122
 * Layers = 3
 * Neurons = 80/80/80
 * Activation Function = relu
-* Attempted to an additional layer with the same number of neurons to add more trainable parameters into the model.
+* Attempted to add an additional layer with the same number of neurons to add more trainable parameters into the model.
 
 **Achieve 75% Accuracy?**
 * No - 71.22%
@@ -116,6 +116,6 @@ This attempt achieved a model accuracy of .7122
 
 ## Summary
 
-Overall, all three attempts scored an accuracy score of over 70%, which is a good, but not great, accuracy score.  My attempts to improve the accuracy score were very frustrating, I was uncertain what the different changes would have on the overall performance.  Obviously, everything I thought would help (removing features, removing variance within features, increasing neurons, layers, and epochs) didn't - in fact, it decreased the accuracy score.
+Overall, all three attempts scored an accuracy score of over 70%, which is a good, but not great, accuracy score.  My attempts to improve the accuracy score were very frustrating, as I was uncertain what the different changes would have on the overall performance.  Obviously, everything I thought would help (removing features, removing variance within features, increasing neurons, layers, and epochs) didn't - in fact, it decreased the accuracy score.
 
 After watching [this](https://www.mathworks.com/videos/introduction-to-deep-learning-machine-learning-vs-deep-learning-1489503513018.html?gclid=EAIaIQobChMIhOWywvORgwMVKszCBB1z2gM0EAAYASAAEgKag_D_BwE&ef_id=EAIaIQobChMIhOWywvORgwMVKszCBB1z2gM0EAAYASAAEgKag_D_BwE:G:s&s_kwcid=AL!8664!3!591940647971!p!!g!!machine%20learning%20vs%20neural%20networks&s_eid=psn_68899282265&q=machine+learning+vs+neural+networks&gad_source=1) video on when you should use machine learning vs. deep learning, it seems that deep learning is best used for much larger datasets.  In this case, we might have seen better accuracy in a machine learning model such as LogisticRegression, since this dataset is "small" in comparision to other datasets intended for neural networks.
